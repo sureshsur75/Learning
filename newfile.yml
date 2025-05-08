@@ -1,0 +1,7 @@
+---
+- name: Ping Test Playbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Ping Test
+      ping:

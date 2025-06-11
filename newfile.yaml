@@ -1,7 +1,7 @@
 ---
-- name: inventory.ini
-    hosts: all
-    gather_facts: no
-    tasks:
-        - name: Ping all hosts
-            ansible.builtin.ping
+- name: Ping Test Playbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Ping Test
+      ping:

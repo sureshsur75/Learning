@@ -1,4 +1,3 @@
-```yaml
 ---
 - name: Gather system information report for AIX server
     hosts: 172.28.128.36

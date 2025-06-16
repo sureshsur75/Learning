@@ -1,0 +1,34 @@
+## DRS Monthly Reporting Configuration on Datadog
+
+To configure DRS Monthly Reporting in Datadog, follow these steps:
+
+1. **Define Metrics and Logs**  
+    Identify the key metrics and logs required for DRS monthly reporting (e.g., usage, errors, performance).
+
+2. **Create a Dashboard**  
+    - Navigate to **Dashboards** in Datadog.
+    - Click **New Dashboard** and name it `DRS Monthly Reporting`.
+    - Add widgets for each metric/log relevant to DRS.
+
+3. **Set Up Monitors**  
+    - Go to **Monitors** > **New Monitor**.
+    - Configure alerts for thresholds or anomalies in DRS metrics.
+    - Set the evaluation period to monthly.
+
+4. **Schedule Monthly Reports**  
+    - Use the **Scheduled PDF Reports** feature on your dashboard.
+    - Click **Share** > **Export as PDF** > **Schedule Email Report**.
+    - Set the frequency to **Monthly** and add recipients.
+    - The report will be generated and sent automatically every month as configured.
+
+5. **Automate Data Collection (Optional)**  
+    - Integrate Datadog with your DRS system using the Datadog API or agent.
+    - Ensure all relevant data is tagged for easy filtering.
+
+6. **Review and Adjust**  
+    - Regularly review the dashboard and monitors.
+    - Update configurations as reporting requirements evolve.
+
+**References:**  
+- [Datadog Dashboards Documentation](https://docs.datadoghq.com/dashboards/)
+- [Datadog Monitors Documentation](https://docs.datadoghq.com/monitors/)

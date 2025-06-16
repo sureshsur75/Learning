@@ -3,7 +3,7 @@
 # Usage: ./package.sh
 
 CVE_FILE="/tmp/cve.txt"
-REPORT_FILE="/tmp/$(hostname)_$(date +%Y%m%d).txt"
+REPORT_FILE="/tmp/$(hostname -f)_$(date +%Y%m%d).txt"
 > "$REPORT_FILE"
 
 if [[ -z "$CVE_FILE" || ! -f "$CVE_FILE" ]]; then
@@ -28,10 +28,19 @@ while read -r line; do
             [[ -z "$CVE" ]] && continue
             MATCH=$(echo "$INSTALLED_ADVISORIES" | grep -i "$CVE")
             if [[ -n "$MATCH" ]]; then
-                echo "$CVE ($IP) - INSTALLED" >> "$REPORT_FILE"
-                echo "$MATCH" >> "$REPORT_FILE"
+                for ADV in $(echo "$MATCH" | awk '{print $1}'); do
+                    echo "$CVE ($IP) - $ADV - INSTALLED" >> "$REPORT_FILE"
+                done
             else
-                echo "$CVE ($IP) - NOT INSTALLED" >> "$REPORT_FILE"
+                # Try to find advisory name from all advisories (not just installed)
+                ALL_ADVISORIES=$(dnf updateinfo list all | grep -i "$CVE")
+                if [[ -n "$ALL_ADVISORIES" ]]; then
+                    for ADV in $(echo "$ALL_ADVISORIES" | awk '{print $1}'); do
+                        echo "$CVE ($IP) - $ADV - NOT INSTALLED" >> "$REPORT_FILE"
+                    done
+                else
+                    echo "$CVE ($IP) - NO_ADVISORY - NOT INSTALLED" >> "$REPORT_FILE"
+                fi
             fi
             echo "" >> "$REPORT_FILE"
             echo "" >> "$REPORT_FILE"

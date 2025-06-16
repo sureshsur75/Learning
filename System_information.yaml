@@ -14,6 +14,30 @@
                 lparstat -i
             register: aix_sysinfo
 
+<<<<<<< HEAD
         - name: Show AIX system information
             ansible.builtin.debug:
                 var: aix_sysinfo.stdout_lines
+=======
+        - name: Collect memory information
+            command: lsattr -El sys0 -a realmem
+            register: memory_info
+
+        - name: Collect disk information
+            command: lspv
+            register: disk_info
+
+        - name: Collect network interfaces
+            command: ifconfig -a
+            register: net_info
+
+        - name: Print system information report
+            debug:
+                msg: |
+                    OS Version: {{ os_version.stdout }}
+                    CPU Info: {{ cpu_info.stdout }}
+                    Memory Info: {{ memory_info.stdout }}
+                    Disk Info: {{ disk_info.stdout }}
+                    Network Info: {{ net_info.stdout }}
+```
+>>>>>>> 603aa7ef808df4d94e32390d3dbc16f21f202998

@@ -1,36 +1,19 @@
-```yaml
 ---
-- name: Gather system information report for AIX server
-    hosts: 172.28.128.36
-    gather_facts: yes
+- name: Gather AIX OS system information for a single server
+    hosts: 172.28.128.36   # Replace with your AIX server's inventory hostname
+    gather_facts: no
 
     tasks:
-        - name: Collect OS version
-            command: oslevel -s
-            register: os_version
+        - name: Gather basic system facts
+            ansible.builtin.setup:
 
-        - name: Collect CPU information
-            command: lsdev -Cc processor
-            register: cpu_info
+        - name: Gather AIX specific system information
+            ansible.builtin.shell: |
+                oslevel
+                uname -a
+                lparstat -i
+            register: aix_sysinfo
 
-        - name: Collect memory information
-            command: lsattr -El sys0 -a realmem
-            register: memory_info
-
-        - name: Collect disk information
-            command: lspv
-            register: disk_info
-
-        - name: Collect network interfaces
-            command: ifconfig -a
-            register: net_info
-
-        - name: Print system information report
-            debug:
-                msg: |
-                    OS Version: {{ os_version.stdout }}
-                    CPU Info: {{ cpu_info.stdout }}
-                    Memory Info: {{ memory_info.stdout }}
-                    Disk Info: {{ disk_info.stdout }}
-                    Network Info: {{ net_info.stdout }}
-```
+        - name: Show AIX system information
+            ansible.builtin.debug:
+                var: aix_sysinfo.stdout_lines

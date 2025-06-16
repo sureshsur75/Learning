@@ -1,34 +1,36 @@
-## DRS Monthly Reporting Configuration on Datadog
+```yaml
+---
+- name: Gather system information report for AIX server
+    hosts: 172.28.128.36
+    gather_facts: yes
 
-To configure DRS Monthly Reporting in Datadog, follow these steps:
+    tasks:
+        - name: Collect OS version
+            command: oslevel -s
+            register: os_version
 
-1. **Define Metrics and Logs**  
-    Identify the key metrics and logs required for DRS monthly reporting (e.g., usage, errors, performance).
+        - name: Collect CPU information
+            command: lsdev -Cc processor
+            register: cpu_info
 
-2. **Create a Dashboard**  
-    - Navigate to **Dashboards** in Datadog.
-    - Click **New Dashboard** and name it `DRS Monthly Reporting`.
-    - Add widgets for each metric/log relevant to DRS.
+        - name: Collect memory information
+            command: lsattr -El sys0 -a realmem
+            register: memory_info
 
-3. **Set Up Monitors**  
-    - Go to **Monitors** > **New Monitor**.
-    - Configure alerts for thresholds or anomalies in DRS metrics.
-    - Set the evaluation period to monthly.
+        - name: Collect disk information
+            command: lspv
+            register: disk_info
 
-4. **Schedule Monthly Reports**  
-    - Use the **Scheduled PDF Reports** feature on your dashboard.
-    - Click **Share** > **Export as PDF** > **Schedule Email Report**.
-    - Set the frequency to **Monthly** and add recipients.
-    - The report will be generated and sent automatically every month as configured.
+        - name: Collect network interfaces
+            command: ifconfig -a
+            register: net_info
 
-5. **Automate Data Collection (Optional)**  
-    - Integrate Datadog with your DRS system using the Datadog API or agent.
-    - Ensure all relevant data is tagged for easy filtering.
-
-6. **Review and Adjust**  
-    - Regularly review the dashboard and monitors.
-    - Update configurations as reporting requirements evolve.
-
-**References:**  
-- [Datadog Dashboards Documentation](https://docs.datadoghq.com/dashboards/)
-- [Datadog Monitors Documentation](https://docs.datadoghq.com/monitors/)
+        - name: Print system information report
+            debug:
+                msg: |
+                    OS Version: {{ os_version.stdout }}
+                    CPU Info: {{ cpu_info.stdout }}
+                    Memory Info: {{ memory_info.stdout }}
+                    Disk Info: {{ disk_info.stdout }}
+                    Network Info: {{ net_info.stdout }}
+```

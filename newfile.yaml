@@ -1,7 +1,8 @@
 ---
-- name: Ping Test Playbook
-  hosts: 172.28.128.36
-  gather_facts: no
-  tasks:
-    - name: Ping Test
-      ping:
+- name: Ping all hosts in inventory
+    hosts: all
+    gather_facts: no
+
+    tasks:
+        - name: Ping test
+            ansible.builtin.ping:

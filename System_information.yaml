@@ -1,55 +1,12 @@
 ---
-- name: Gather hardware information on AIX servers
+- name: Gather OS version on AIX servers
     hosts: all
     gather_facts: no
-
     tasks:
-        - name: Gather hardware information using lscfg
-            shell: lscfg -vp
-            register: lscfg_output
+        - name: Get AIX OS version
+            command: oslevel -s
+            register: os_version
 
-        - name: Gather CPU information
-            shell: lsdev -Cc processor
-            register: cpu_output
-
-<<<<<<< HEAD
-        - name: Gather memory information
-            shell: lsattr -El mem0
-            register: mem_output
-
-        - name: Show hardware information
+        - name: Show OS version
             debug:
-                msg:
-                    - "Hardware Info: {{ lscfg_output.stdout }}"
-                    - "CPU Info: {{ cpu_output.stdout }}"
-                    - "Memory Info: {{ mem_output.stdout }}"
-=======
-        - name: Collect memory information
-            ansible.builtin.command: lsattr -El sys0 -a realmem
-            register: memory_info
-
-        - name: Collect disk information
-            ansible.builtin.command: lspv
-            register: disk_info
-
-        - name: Collect network interfaces
-            ansible.builtin.command: ifconfig -a
-            register: net_info
-
-        - name: Print AIX system information report
-            ansible.builtin.debug:
-                msg: |
-                    AIX System Information:
-                    ----------------------
-                    OS/Kernel/LPAR Info:
-                    {{ aix_sysinfo.stdout }}
-
-                    Memory Info:
-                    {{ memory_info.stdout }}
-
-                    Disk Info:
-                    {{ disk_info.stdout }}
-
-                    Network Info:
-                    {{ net_info.stdout }}
->>>>>>> 47e637ca14931a4a4dad904d5a52876995ca0184
+                msg: "AIX OS version: {{ os_version.stdout }}"

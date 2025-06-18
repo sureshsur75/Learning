@@ -12,6 +12,7 @@
             shell: lsdev -Cc processor
             register: cpu_output
 
+<<<<<<< HEAD
         - name: Gather memory information
             shell: lsattr -El mem0
             register: mem_output
@@ -22,3 +23,33 @@
                     - "Hardware Info: {{ lscfg_output.stdout }}"
                     - "CPU Info: {{ cpu_output.stdout }}"
                     - "Memory Info: {{ mem_output.stdout }}"
+=======
+        - name: Collect memory information
+            ansible.builtin.command: lsattr -El sys0 -a realmem
+            register: memory_info
+
+        - name: Collect disk information
+            ansible.builtin.command: lspv
+            register: disk_info
+
+        - name: Collect network interfaces
+            ansible.builtin.command: ifconfig -a
+            register: net_info
+
+        - name: Print AIX system information report
+            ansible.builtin.debug:
+                msg: |
+                    AIX System Information:
+                    ----------------------
+                    OS/Kernel/LPAR Info:
+                    {{ aix_sysinfo.stdout }}
+
+                    Memory Info:
+                    {{ memory_info.stdout }}
+
+                    Disk Info:
+                    {{ disk_info.stdout }}
+
+                    Network Info:
+                    {{ net_info.stdout }}
+>>>>>>> 47e637ca14931a4a4dad904d5a52876995ca0184

@@ -1,5 +1,4 @@
 ```yaml
-```yaml
 ---
 - name: Gather AIX OS Information
     hosts: aix_hosts

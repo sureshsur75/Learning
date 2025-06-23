@@ -1,12 +1,31 @@
+```yaml
+```yaml
 ---
-- name: Gather OS version on AIX servers
-    hosts: all
+- name: Gather AIX OS Information
+    hosts: aix_hosts
     gather_facts: no
-    tasks:
-        - name: Get AIX OS version
-            command: oslevel -s
-            register: os_version
 
-        - name: Show OS version
-            debug:
-                msg: "AIX OS version: {{ os_version.stdout }}"
+    tasks:
+        - name: Gather AIX OS level
+            ansible.builtin.shell: oslevel -s
+            register: oslevel
+
+        - name: Display AIX OS level
+            ansible.builtin.debug:
+                msg: "AIX OS Level: {{ oslevel.stdout }}"
+
+        - name: Gather system information
+            ansible.builtin.shell: uname -a
+            register: uname_info
+
+        - name: Display system information
+            ansible.builtin.debug:
+                msg: "Uname Info: {{ uname_info.stdout }}"
+```
+
+**Example `inventory.ini`:**
+```ini
+[aix_hosts]
+aix_host1 ansible_host=192.168.1.10 ansible_user=root
+aix_host2 ansible_host=192.168.1.11 ansible_user=root
+```

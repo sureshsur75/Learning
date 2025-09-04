@@ -1,0 +1,11 @@
+---
+- name: Password genrate on endpoint.
+  hosts: all
+  become: true
+  gather_facts: True
+  
+  vars_files:
+    - vars/settings.yml
+  
+  roles:
+    - genrate_password

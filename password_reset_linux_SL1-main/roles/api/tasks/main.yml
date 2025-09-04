@@ -1,0 +1,6 @@
+---
+- name: upload the check on SL1 DB
+  shell: |
+    set -o pipefail
+    response=$(curl -k -v -H 'X-em7-beautify-response:1' -u "{{ apiuserdetail }}" "{{ uplod_url_detail_SL1 }}" -L -H 'Pragma: no-cache' -H 'Accept: application/json, */*' -H 'Cache-Control: no-cache' --compressed -X POST -d '{"ssh_key_data":"","cred_name":"MCMS-ANSIBLE-LINUX-TEST-AUTO","cred_user":"{{ user_name }}","cred_pwd":"{{ lookup('password','length=8 chars=ascii_letters,digits')}}","cred_host":"%D","cred_port":"22","cred_timeout":"10000","updated_by":"/api/account/{{ uploder_id }}","cred_guid":"387788C8CFEE4B9FE38828DFECABDD3F","all_orgs":"1","sub_type":"","aligned_organizations":[]}' -H 'Content-Type: application/json' -H 'x-em7-guid-paths: 1')
+  delegate_to: localhost

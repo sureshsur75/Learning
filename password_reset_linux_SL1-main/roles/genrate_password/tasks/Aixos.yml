@@ -1,0 +1,17 @@
+---
+# - name: Change user password
+#   user:
+#     name: jhon
+#     update_password: always
+#     password: "{{ newpassword|password_hash('sha512') }}"
+
+- name: Genrating Random password for {{ user_name }}
+  user:
+     name: "{{ user_name }}"
+     update_password: always
+#      newpassword: "{{ lookup('password', '/tmp/passwordfile length=8 chars=ascii_letters,digits') }}"  
+     password: "{{ lookup('password', 'length=8 chars=ascii_letters,digits')|password_hash('sha512') }}"
+     
+# - name: debug log
+#   debug:
+#      msg: "{{ lookup('password', 'length=8 chars=ascii_letters,digits') }}"

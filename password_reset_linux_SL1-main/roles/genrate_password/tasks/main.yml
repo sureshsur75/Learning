@@ -1,0 +1,16 @@
+---    
+- name: indicate the OS family
+  debug:
+    var: ansible_os_family
+
+- include: linux_password.yml
+  when: ansible_os_family == 'RedHat'
+  
+- include: Suseos.yml 
+  when: ansible_os_family == 'Suse'  
+  
+- include: solarisos.yml
+  when: ansible_os_family == 'Solaris'  
+
+- include: Aixos.yml
+  when: ansible_os_family == 'AIX'

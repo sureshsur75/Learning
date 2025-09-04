@@ -1,0 +1,17 @@
+---
+# provide user name.
+user_name: jhon
+
+# newpassword: 
+
+# API user password.
+apiuserdetail:
+
+# provide uploader id for SL
+uploder_id: 57
+
+# Provide SL Url detail
+uplod_url_detail_SL1: 'http://10.120.164.158/api/credential/ssh/387788C8CFEE4B9FE38828DFECABDD3F'
+
+# Provide uploader id for user in AT
+AT_id: 67

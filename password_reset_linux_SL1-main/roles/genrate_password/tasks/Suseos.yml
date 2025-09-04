@@ -1,0 +1,9 @@
+---
+- name: Genrating Random password for "{{ user_name }}"
+  vars:
+     newpassword: "{{ lookup('password','length=8 chars=ascii_letters,digits')}}"
+  user:
+     name: "{{ user_name }}"
+     password: "{{ newpassword|password_hash('sha512') }}"
+     update_password: always
+  no_log: True

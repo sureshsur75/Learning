@@ -1,24 +1,26 @@
 ---
-- name: Password genrate on endpoint.
-  hosts: all
+- name: Password generate on endpoint for testing server.
+  hosts: red_prueba.femcom.net  # Target the specific server 'testing'
   become: true
   gather_facts: True
 
   vars:
-  jh1_ssh_user: oxxipat1
-  
-  vars_files:
-    - vars/settings.yml
-  
+    jh1_ssh_user: oxxipat1  # Set the username to suresh for this playbook
+
   roles:
-    - genrate_password
-    
+    - genrate_password  # Assuming the role is used for handling password generation and changes
+
   tasks:
-    - name: Generating Random password for "oxxipat1"
+    - name: Generating Random password for "{{ jh1_ssh_user }}"
       ansible.builtin.set_fact:
         generated_password: "{{ lookup('passwordstore', '/dev/null length=16 chars=ascii_letters,digits') }}"
- 
+    
     - name: Display the generated password
       ansible.builtin.debug:
-        msg: "Generated password for oxxipat1: {{ generated_password }}"
+        msg: "Generated password for {{ jh1_ssh_user }}: {{ generated_password }}"
 
+    # Optional: Set the password on the system if needed
+    - name: Change password for "{{ jh1_ssh_user }}"
+      ansible.builtin.user:
+        name: "{{ jh1_ssh_user }}"
+        password: "{{ generated_password | password_hash('sha512') }}"

@@ -3,6 +3,9 @@
   hosts: all
   become: true
   gather_facts: True
+
+  vars:
+  jh1_ssh_user: oxxipat1
   
   vars_files:
     - vars/settings.yml
@@ -18,3 +21,4 @@
     - name: Display the generated password
       ansible.builtin.debug:
         msg: "Generated password for oxxipat1: {{ generated_password }}"
+

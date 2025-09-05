@@ -10,8 +10,9 @@
      name: "{{ user_name }}"
      update_password: always
 #      newpassword: "{{ lookup('password', '/tmp/passwordfile length=8 chars=ascii_letters,digits') }}"  
-     password: "{{ lookup('password', 'length=8 chars=ascii_letters,digits')|password_hash('sha512') }}"
+     password: "{{password}}"
      
 # - name: debug log
 #   debug:
 #      msg: "{{ lookup('password', 'length=8 chars=ascii_letters,digits') }}"
+

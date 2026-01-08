@@ -1,0 +1,13 @@
+Component,Name,Usage_Percent,Threshold,Status,Details
+"CPU","Overall CPU","3%","<85 OK | 85-90 WARN | >90 CRIT","OK","Idle=97%"
+"Memory","Physical Memory","50%","<85 OK | 85-90 WARN | >90 CRIT","OK","Used=15.7G Total=31.1G"
+"Filesystem","efivarfs (/sys/firmware/efi/efivars)","1%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=1G Used=1G Avail=1G"
+"Filesystem","/dev/mapper/rootvg-rootlv (/)","31%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=12G Used=4G Avail=9G"
+"Filesystem","/dev/mapper/rootvg-usrlv (/usr)","41%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=10G Used=5G Avail=6G"
+"Filesystem","/dev/nvme0n1p2 (/boot)","77%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=1G Used=1G Avail=1G"
+"Filesystem","/dev/mapper/rootvg-homelv (/home)","16%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=1G Used=1G Avail=1G"
+"Filesystem","/dev/mapper/rootvg-tmplv (/tmp)","7%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=2G Used=1G Avail=2G"
+"Filesystem","/dev/mapper/rootvg-varlv (/var)","44%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=8G Used=4G Avail=5G"
+"Filesystem","/dev/nvme0n1p1 (/boot/efi)","4%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=1G Used=1G Avail=1G"
+"Filesystem","/dev/mapper/datavg-datalv (/data)","65%","<80 OK | 80-90 WARN | >90 CRIT","OK","Size=1099G Used=713G Avail=386G"
+"Server","afs-vm-eastus-elastic-az2-hot-p02","-","-","WARN","Overall Server Health"
